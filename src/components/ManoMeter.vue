@@ -7,7 +7,7 @@ const isOnReserve = (() => store.scubadiver.tank.reserve >= store.scubadiver.tan
 
 <template>
     <section class="manometer">
-        <p :class="{ reserve: isOnReserve() }">{{ store.scubadiver.tank.pressure }} <span>bar</span></p>
+        <p :class="{ reserve: isOnReserve() }">{{ Math.round(store.scubadiver.tank.pressure) }} <span>bar</span></p>
     </section>
 </template>
 

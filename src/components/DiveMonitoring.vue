@@ -22,6 +22,8 @@ const dive = computed(() => store.scubadiver.dive)
       <p>gas volume (l): {{ gasParameters.tankGas }}</p>
       <p>pressure: {{ dive.pressure }}</p>
       <p>gas autonomy (min): {{ gasParameters.autonomy }}</p>
+      <p>floatability: {{ store.scubadiver.flotability }}</p>
+      <p>stab: {{ store.scubadiver.stab.volume }}</p>
     </section>
   </div>
 </template>

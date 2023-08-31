@@ -14,24 +14,37 @@ interface Dive {
   pressure: Pressure
 }
 
+interface Stab {
+  volume: number
+  max: number
+}
 export interface Scubadiver {
   dive: Dive
   airConsumption: number
+  readonly apparentWeight: number
+  flotability: number // positive : sink, negatif: float
   tank: Tank
+  stab: Stab
 }
 
 export const initialDiver: Scubadiver = {
   airConsumption: 15, // l/min
+  apparentWeight: -2,
+  flotability: 0,
   dive: {
     depth: 0,
     maxDepth: 0,
     pressure: 1,
-    time: 0,
+    time: 0
   },
   tank: {
     volume: 12,
     pressure: 200,
     reserve: 50
+  },
+  stab: {
+    volume: 0,
+    max: 15
   }
 }
 
@@ -39,17 +52,56 @@ export function goDown(scubadivers: Scubadiver): Scubadiver {
   const depth = Math.min(120, scubadivers.dive.depth + 0.5)
   const maxDepth = Math.max(depth, scubadivers.dive.maxDepth)
   const pressure = getPressure(depth)
-  return { ...scubadivers, dive: { ...scubadivers.dive, depth, pressure, maxDepth }}
+  return {
+    ...scubadivers,
+    dive: { ...scubadivers.dive, depth, pressure, maxDepth },
+    flotability: computeFloatbility(scubadivers)
+  }
 }
 
 export function goUp(scubadivers: Scubadiver): Scubadiver {
   const depth = Math.max(0, scubadivers.dive.depth - 0.5)
   const pressure = getPressure(depth)
-  return { ...scubadivers, dive: { ...scubadivers.dive, depth, pressure }}
+  return {
+    ...scubadivers,
+    dive: { ...scubadivers.dive, depth, pressure },
+    flotability: computeFloatbility(scubadivers)
+  }
 }
 
 export function updateDiveTime(scubadivers: Scubadiver, time: number): Scubadiver {
-  return { ...scubadivers, dive: { ...scubadivers.dive, time  }, tank: { ...scubadivers.tank, pressure: calculNewTankPressureAfterOneMinute(scubadivers )} }
+  return {
+    ...scubadivers,
+    dive: { ...scubadivers.dive, time },
+    tank: { ...scubadivers.tank, pressure: calculNewTankPressureAfterOneMinute(scubadivers) }
+  }
+}
+
+export function computeFloatbility(scubadiver: Scubadiver): number {
+  return scubadiver.apparentWeight + scubadiver.stab.volume
+}
+
+export function inflateAirInStab(scubadiver: Scubadiver): Scubadiver {
+  const volumeInflated = 0.5
+  const volume = Math.min(scubadiver.stab.max, scubadiver.stab.volume + volumeInflated)
+  let pressure = scubadiver.tank.pressure
+  if (volume != scubadiver.stab.max) {
+    pressure = calculNewTankPressure(scubadiver, volumeInflated)
+  }
+  return {
+    ...scubadiver,
+    stab: { ...scubadiver.stab, volume },
+    tank: { ...scubadiver.tank, pressure }
+  }
+}
+
+export function deflateAirInStab(scubadiver: Scubadiver): Scubadiver {
+  const volume = Math.max(0, scubadiver.stab.volume - 0.5)
+  return { ...scubadiver, stab: { ...scubadiver.stab, volume } }
+}
+
+export function rapidPurge(scubadiver: Scubadiver): Scubadiver {
+  return { ...scubadiver, stab: { ...scubadiver.stab, volume: 0 } }
 }
 
 const getPressure = (depth: Depth) => 1 + Math.round(depth * 0.1 * 10) / 10
@@ -66,7 +118,11 @@ export const getGasParameters = (diver: Scubadiver): GasParameters => {
 }
 
 export const calculNewTankPressureAfterOneMinute = (diver: Scubadiver): Pressure => {
+  return calculNewTankPressure(diver, diver.airConsumption)
+}
+
+export const calculNewTankPressure = (diver: Scubadiver, volume: number): Pressure => {
   const tankGas = diver.tank.pressure * diver.tank.volume
-  const rest = tankGas - diver.airConsumption * diver.dive.pressure
-  return Math.max(0, Math.round(rest / diver.tank.volume))
+  const rest = tankGas - volume * diver.dive.pressure
+  return Math.max(0, rest / diver.tank.volume)
 }

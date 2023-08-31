@@ -1,18 +1,27 @@
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { goDown, goUp, initialDiver, updateDiveTime, type Scubadiver } from '@/core/ScubaDiver'
+import {
+  goDown,
+  goUp,
+  initialDiver,
+  updateDiveTime,
+  type Scubadiver,
+  inflateAirInStab,
+  deflateAirInStab,
+  rapidPurge
+} from '@/core/ScubaDiver'
 import { useTimer } from './timer'
 
 type Move = 'NO' | 'DOWN' | 'UP'
 
 export const useScubaDiver = defineStore('scubadivers', () => {
   const scubadiver = reactive<Scubadiver>(initialDiver)
-  const timer = useTimer();
+  const timer = useTimer()
   const move = ref<Move>('NO')
 
   function down() {
     Object.assign(scubadiver, goDown(scubadiver))
-    if (scubadiver.dive.depth > 0){
+    if (scubadiver.dive.depth > 0) {
       timer.start()
     }
     move.value = 'DOWN'
@@ -20,7 +29,7 @@ export const useScubaDiver = defineStore('scubadivers', () => {
 
   function up() {
     Object.assign(scubadiver, goUp(scubadiver))
-    if (scubadiver.dive.depth === 0){
+    if (scubadiver.dive.depth === 0) {
       timer.stop()
     }
     move.value = 'UP'
@@ -30,7 +39,7 @@ export const useScubaDiver = defineStore('scubadivers', () => {
     move.value = 'NO'
   }
 
-  function updateTime(value: number){
+  function updateTime(value: number) {
     Object.assign(scubadiver, updateDiveTime(scubadiver, value))
   }
 
