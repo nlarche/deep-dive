@@ -1,29 +1,26 @@
 <script setup lang="ts">
 import { getGasParameters } from '@/core/ScubaDiver'
 import { useScubaDiver } from '@/stores/scubadiver'
-import { useTimer } from '@/stores/timer'
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 
 const store = useScubaDiver()
-const timeStore = useTimer()
 const gasParameters = computed(() => getGasParameters(store.scubadiver))
-watch(store.scubadiver, (scubadiver) => {
-  scubadiver.depth > 0 ? timeStore.start() : timeStore.stop()
-})
+const dive = computed(() => store.scubadiver.dive)
+
 </script>
 
 <template>
   <div class="monitor">
     <section class="computer">
-      <p>{{ store.scubadiver.depth.toFixed(1) }} <span>m</span></p>
+      <p>{{ dive.depth.toFixed(1) }} <span>m</span></p>
       <p class="maxDepth">
-        <span>Max</span> {{ store.scubadiver.maxDepth.toFixed(1) }} <span>m</span>
+        <span>Max</span> {{ dive.maxDepth.toFixed(1) }} <span>m</span>
       </p>
-      <p>{{ timeStore.timer }} <span>min</span></p>
+      <p>{{ dive.time }} <span>min</span></p>
     </section>
     <section>
       <p>gas volume (l): {{ gasParameters.tankGas }}</p>
-      <p>pressure: {{ store.scubadiver.pressure }}</p>
+      <p>pressure: {{ dive.pressure }}</p>
       <p>gas autonomy (min): {{ gasParameters.autonomy }}</p>
     </section>
   </div>
@@ -40,9 +37,8 @@ watch(store.scubadiver, (scubadiver) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 150px;
-  width: 150px;
-  /* border: 4px solid black; */
+  height: 10em;
+  width: 10em;
   border-radius: 40%;
   background-color: whitesmoke;
   color: gray;
@@ -56,6 +52,7 @@ watch(store.scubadiver, (scubadiver) => {
 .computer .maxDepth {
   font-size: small;
 }
+
 .computer p span {
   font-size: xx-small;
 }

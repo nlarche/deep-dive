@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useScubaDiver } from './scubadiver'
 
 export const useTimer = defineStore('timer', () => {
+  const scubadiverStore = useScubaDiver()
   const timer = ref(0)
   let interval: NodeJS.Timer
 
@@ -9,6 +11,7 @@ export const useTimer = defineStore('timer', () => {
     if (!interval) {
       interval = setInterval(() => {
         timer.value++
+        scubadiverStore.updateTime(timer.value)
       }, 10000)
     }
   }

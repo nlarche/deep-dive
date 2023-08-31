@@ -21,9 +21,13 @@ const transform = computed(() => {
 
 <style scoped>
 .scubadiver {
+  position: absolute;
+  left: 50vw;
+  top: 50vh;
   background-image: url('@/assets/diving.png');
-  width: 30px;
-  height: 30px;
+  width: 3em;
+  height: 3em;
+  margin-top: -1.5em;
   background-position: top;
   background-size: contain;
 }
