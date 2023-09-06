@@ -10,31 +10,16 @@ const dive = computed(() => store.scubadiver.dive)
 </script>
 
 <template>
-  <div class="monitor">
-    <section class="computer">
-      <p>{{ dive.depth.toFixed(1) }} <span>m</span></p>
-      <p class="maxDepth">
-        <span>Max</span> {{ dive.maxDepth.toFixed(1) }} <span>m</span>
-      </p>
-      <p>{{ dive.time }} <span>min</span></p>
-    </section>
-    <section>
-      <p>gas volume (l): {{ gasParameters.tankGas }}</p>
-      <p>pressure: {{ dive.pressure }}</p>
-      <p>gas autonomy (min): {{ gasParameters.autonomy }}</p>
-      <p>floatability: {{ store.scubadiver.flotability }}</p>
-      <p>stab: {{ store.scubadiver.stab.volume }}</p>
-    </section>
-  </div>
+  <section class="computer">
+    <p>{{ dive.depth.toFixed(1) }} <span>m</span></p>
+    <p class="maxDepth">
+      <span>Max</span> {{ dive.maxDepth.toFixed(1) }} <span>m</span>
+    </p>
+    <p>{{ dive.time }} <span>min</span></p>
+  </section>
 </template>
 
 <style scoped>
-.monitor {
-  z-index: 1;
-  position: absolute;
-  margin: 20px;
-}
-
 .computer {
   display: flex;
   flex-direction: column;

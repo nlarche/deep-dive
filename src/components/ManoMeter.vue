@@ -33,17 +33,10 @@ const ticks = Array.from({ length: 31 }).map((i, index) => index).map(i => value
 
 <style lang="scss" scoped>
 .manometer {
-    z-index: 1;
-    position: absolute;
-    margin: 20px;
-    right: 10px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-
     --_ow: 10em;
     --_w: 92cqi;
     --_r: calc((var(--_w) - var(--_sz)) / 2);
     --_sz: 12cqi;
-
     background: #222;
     block-size: var(--_ow);
     border-radius: 50%;

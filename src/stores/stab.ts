@@ -6,9 +6,11 @@ import {
   computeFloatbility
 } from '@/core/ScubaDiver'
 import { useScubaDiver } from './scubadiver'
+import { computed } from 'vue'
 
 export const useStab = defineStore('stab', () => {
   const store = useScubaDiver()
+  const stab = computed(() => store.scubadiver.stab)
 
   function inflate() {
     const diver = inflateAirInStab(store.scubadiver)
@@ -23,5 +25,5 @@ export const useStab = defineStore('stab', () => {
     Object.assign(store.scubadiver, computeFloatbility(diver))
   }
 
-  return { inflate, deflate, purge }
+  return { inflate, deflate, purge, stab }
 })
