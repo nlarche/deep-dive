@@ -30,6 +30,7 @@ const dive = computed(() => store.scubadiver.dive)
 
 <style scoped>
 .monitor {
+  z-index: 1;
   position: absolute;
   margin: 20px;
 }

@@ -1,3 +1,5 @@
+import ScubaDiverVue from '@/components/ScubaDiver.vue'
+
 type Depth = number
 type Pressure = number
 
@@ -30,7 +32,7 @@ export interface Scubadiver {
 export const initialDiver: Scubadiver = {
   airConsumption: 15, // l/min
   apparentWeight: -2,
-  flotability: 0,
+  flotability: 4,
   dive: {
     depth: 0,
     maxDepth: 0,
@@ -43,29 +45,30 @@ export const initialDiver: Scubadiver = {
     reserve: 50
   },
   stab: {
-    volume: 0,
+    volume: 6,
     max: 15
   }
 }
 
 export function goDown(scubadivers: Scubadiver): Scubadiver {
-  const depth = Math.min(120, scubadivers.dive.depth + 0.5)
+  const accelerator = scubadivers.dive.pressure >= 4 ? scubadivers.dive.pressure / 3 : 1
+  const delta = (scubadivers.flotability / -2) * accelerator || 0.1
+  const depth = Math.min(120, scubadivers.dive.depth + delta)
   const maxDepth = Math.max(depth, scubadivers.dive.maxDepth)
   const pressure = getPressure(depth)
   return {
     ...scubadivers,
-    dive: { ...scubadivers.dive, depth, pressure, maxDepth },
-    flotability: computeFloatbility(scubadivers)
+    dive: { ...scubadivers.dive, depth, pressure, maxDepth }
   }
 }
 
 export function goUp(scubadivers: Scubadiver): Scubadiver {
-  const depth = Math.max(0, scubadivers.dive.depth - 0.5)
+  const delta = scubadivers.flotability / -2 || -0.1
+  const depth = Math.max(0, scubadivers.dive.depth + delta)
   const pressure = getPressure(depth)
   return {
-    ...scubadivers,
-    dive: { ...scubadivers.dive, depth, pressure },
-    flotability: computeFloatbility(scubadivers)
+    ...scubadivers, 
+    dive: { ...scubadivers.dive, depth, pressure }
   }
 }
 
@@ -77,8 +80,8 @@ export function updateDiveTime(scubadivers: Scubadiver, time: number): Scubadive
   }
 }
 
-export function computeFloatbility(scubadiver: Scubadiver): number {
-  return scubadiver.apparentWeight + scubadiver.stab.volume
+export function computeFloatbility(scubadiver: Scubadiver): Scubadiver {
+  return { ...scubadiver, flotability: scubadiver.apparentWeight + scubadiver.stab.volume }
 }
 
 export function inflateAirInStab(scubadiver: Scubadiver): Scubadiver {
