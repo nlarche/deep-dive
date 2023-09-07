@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { getGasParameters } from '@/core/ScubaDiver'
 import { useScubaDiver } from '@/stores/scubadiver'
 import { computed } from 'vue'
+import controlWrapper from './controlWrapper.vue';
 
 const store = useScubaDiver()
-const gasParameters = computed(() => getGasParameters(store.scubadiver))
 const dive = computed(() => store.scubadiver.dive)
 
 </script>
 
 <template>
-  <section class="computer">
+  <controlWrapper class="computer">
     <p>{{ dive.depth.toFixed(1) }} <span>m</span></p>
     <p class="maxDepth">
       <span>Max</span> {{ dive.maxDepth.toFixed(1) }} <span>m</span>
     </p>
     <p>{{ dive.time }} <span>min</span></p>
-  </section>
+  </controlWrapper>
 </template>
 
 <style scoped>
@@ -25,12 +24,6 @@ const dive = computed(() => store.scubadiver.dive)
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 10em;
-  width: 10em;
-  border-radius: 40%;
-  background-color: whitesmoke;
-  color: gray;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .computer p {
