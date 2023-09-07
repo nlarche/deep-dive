@@ -1,5 +1,3 @@
-import ScubaDiverVue from '@/components/ScubaDiver.vue'
-
 type Depth = number
 type Pressure = number
 
@@ -31,8 +29,8 @@ export interface Scubadiver {
 
 export const initialDiver: Scubadiver = {
   airConsumption: 15, // l/min
-  apparentWeight: -2,
-  flotability: 4,
+  apparentWeight: -4,
+  flotability: 2,
   dive: {
     depth: 0,
     maxDepth: 0,
@@ -45,13 +43,13 @@ export const initialDiver: Scubadiver = {
     reserve: 50
   },
   stab: {
-    volume: 6,
+    volume: 12,
     max: 15
   }
 }
 
 export function goDown(scubadivers: Scubadiver): Scubadiver {
-  const accelerator = scubadivers.dive.pressure >= 4 ? scubadivers.dive.pressure / 3 : 1
+  const accelerator = scubadivers.dive.pressure >= 4 ? Math.round(scubadivers.dive.pressure) / 3 : 0
   const delta = (scubadivers.flotability / -2) * accelerator || 0.1
   const depth = Math.min(120, scubadivers.dive.depth + delta)
   const maxDepth = Math.max(depth, scubadivers.dive.maxDepth)
@@ -63,11 +61,11 @@ export function goDown(scubadivers: Scubadiver): Scubadiver {
 }
 
 export function goUp(scubadivers: Scubadiver): Scubadiver {
-  const delta = scubadivers.flotability / -2 || -0.1
+  const delta = scubadivers.flotability > 0 ? scubadivers.flotability / -2 : -0.1
   const depth = Math.max(0, scubadivers.dive.depth + delta)
   const pressure = getPressure(depth)
   return {
-    ...scubadivers, 
+    ...scubadivers,
     dive: { ...scubadivers.dive, depth, pressure }
   }
 }
@@ -107,7 +105,7 @@ export function rapidPurge(scubadiver: Scubadiver): Scubadiver {
   return { ...scubadiver, stab: { ...scubadiver.stab, volume: 0 } }
 }
 
-const getPressure = (depth: Depth) => 1 + Math.round(depth * 0.1 * 10) / 10
+const getPressure = (depth: Depth) => 1 + Math.round(depth * 0.1 * 100) / 100
 
 interface GasParameters {
   tankGas: number
