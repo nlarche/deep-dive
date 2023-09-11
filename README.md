@@ -1,52 +1,33 @@
 # deep-dive
 
-This template should help get you started developing with Vue 3 in Vite.
+This is a scubadiving simulator made in vue 3 with composition api
 
-## Recommended IDE Setup
+## How to play
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+To dive you're flotability had to be negative.
 
-## Type Support for `.vue` Imports in TS
+TO control flotability use your BCD: 
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+**a**: inflate air
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+**z**: defalte air
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+**space**: empty your bcd
 
-## Customize configuration
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+*Empty your BCD to have a negative flottability*
 
-## Project Setup
+you can go up and down with arrow.
 
-```sh
-pnpm install
-```
+>Be carefull as far as you're going deeper, your air consumption is increasing
 
-### Compile and Hot-Reload for Development
 
-```sh
-pnpm dev
-```
 
-### Type-Check, Compile and Minify for Production
+### TODO
 
-```sh
-pnpm build
-```
+- empty air
+- decompression stop
+- fix water height on small screen
+- add rocks ans other fishes
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
 
-```sh
-pnpm test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
