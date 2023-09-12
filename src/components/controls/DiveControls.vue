@@ -23,7 +23,7 @@ import DiveHelp from './DiveHelp.vue';
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 1em;
     grid-row-gap: 1em;
     box-sizing: border-box;
@@ -47,6 +47,6 @@ import DiveHelp from './DiveHelp.vue';
 }
 
 .bottomLeft {
-    grid-area: 4 / 5 / 5 / 6;
+    grid-area: 6 / 5 / 7 / 6;
 }
 </style>
