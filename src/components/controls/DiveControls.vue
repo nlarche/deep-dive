@@ -3,6 +3,7 @@ import ManoMeter from './ManoMeter.vue';
 import BuoyancyControlDevice from './BuoyancyControlDevice.vue';
 import FlotabilityIndicator from './FlotabilityIndicator.vue';
 import DiveComputer from './DiveComputer.vue';
+import DiveHelp from './DiveHelp.vue';
 </script>
 <template>
     <div class="controls">
@@ -10,6 +11,7 @@ import DiveComputer from './DiveComputer.vue';
         <ManoMeter class="firstRight" />
         <BuoyancyControlDevice class="secondLeft" />
         <FlotabilityIndicator class="thirdLeft" />
+        <DiveHelp class="bottomLeft" />
     </div>
 </template>
 
@@ -18,6 +20,7 @@ import DiveComputer from './DiveComputer.vue';
     z-index: 1;
     position: absolute;
     width: 100%;
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows: repeat(4, 1fr);
@@ -41,5 +44,9 @@ import DiveComputer from './DiveComputer.vue';
 
 .thirdLeft {
     grid-area: 3 / 1 / 4 / 2;
+}
+
+.bottomLeft {
+    grid-area: 4 / 5 / 5 / 6;
 }
 </style>
