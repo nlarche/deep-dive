@@ -5,8 +5,8 @@ import { goDown, goUp, initialDiver } from './ScubaDiver'
 describe('Scubadiver core domain', () => {
   it('should goDown', () => {
     const expected = goDown(initialDiver)
-    expect(expected.dive.depth).toBe(0.1)
-    expect(expected.dive.pressure).toBe(1.01)
+    expect(expected.dive.depth).toBe(0.5)
+    expect(expected.dive.pressure).toBe(1.05)
   })
 
   it('should goDown faster below 30 m', () => {
@@ -25,8 +25,8 @@ describe('Scubadiver core domain', () => {
       flotability: 0,
       dive: { ...initialDiver.dive, depth: 20, pressure: 3 }
     })
-    expect(expected.dive.depth).toBe(19.9)
-    expect(expected.dive.pressure).toBe(2.99)
+    expect(expected.dive.depth).toBe(19.5)
+    expect(expected.dive.pressure).toBe(2.95)
   })
 
   it('should goUp with positive flotability', () => {

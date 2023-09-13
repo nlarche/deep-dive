@@ -50,7 +50,7 @@ export const initialDiver: Scubadiver = {
 
 export function goDown(scubadivers: Scubadiver): Scubadiver {
   const accelerator = scubadivers.dive.pressure >= 4 ? Math.round(scubadivers.dive.pressure) / 3 : 0
-  const delta = (scubadivers.flotability / -2) * accelerator || 0.1
+  const delta = (scubadivers.flotability / -2) * accelerator || 0.5
   const depth = Math.min(120, scubadivers.dive.depth + delta)
   const maxDepth = Math.max(depth, scubadivers.dive.maxDepth)
   const pressure = getPressure(depth)
@@ -61,7 +61,7 @@ export function goDown(scubadivers: Scubadiver): Scubadiver {
 }
 
 export function goUp(scubadivers: Scubadiver): Scubadiver {
-  const delta = scubadivers.flotability > 0 ? scubadivers.flotability / -2 : -0.1
+  const delta = scubadivers.flotability > 0 ? scubadivers.flotability / -2 : -0.5 
   const depth = Math.max(0, scubadivers.dive.depth + delta)
   const pressure = getPressure(depth)
   return {

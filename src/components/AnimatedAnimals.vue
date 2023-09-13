@@ -17,7 +17,7 @@ onMounted(() => {
 <template>
     <div ref="animal" class="animals" :class="{ 'left': props.startLeft, 'right': !props.startLeft }" :style="{
         'background-image': `url(${props.image})`,
-        'top': `${props.depth}vh`,
+        'top': `${props.depth}em`,
         'height': `${props.size}em`,
         'width': `${props.size}em`,
         'transform': `rotate(${props.rotate || 0}deg) scaleX(${props.scaleX || 1})`,

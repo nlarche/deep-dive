@@ -38,82 +38,82 @@ const data = [
   },
   {
     image: fish,
-    depth: 90,
+    depth: 35,
     size: 4,
     startLeft: false,
     scaleX: -1
   },
   {
     image: tuna,
-    depth: 180,
+    depth: 65,
     size: 3,
     startLeft: true
   },
   {
     image: tuna,
-    depth: 181,
+    depth: 66,
     size: 2,
     startLeft: true
   },
   {
     image: tuna,
-    depth: 181,
+    depth: 66,
     size: 3,
     startLeft: true
   },
   {
     image: fish,
-    depth: 200,
+    depth: 50,
     size: 5,
     startLeft: true
   },
   {
     image: shark,
-    depth: 300,
+    depth: 65,
     size: 7,
     rotate: -45,
     startLeft: false
   },
   {
     image: whale,
-    depth: 400,
+    depth: 80,
     size: 8,
     startLeft: true
   },
   {
     image: lotte,
-    depth: 500,
+    depth: 95,
     size: 4,
     startLeft: false
   },
   {
     image: squid,
-    depth: 650,
+    depth: 115,
     size: 4,
     startLeft: true,
     rotate: 90
   },
   {
     image: jellyfish,
-    depth: 600,
+    depth: 105,
     size: 2,
     startLeft: false
   },
   {
     image: jellyfish,
-    depth: 601,
+    depth: 106,
     size: 2,
     startLeft: false
   },
   {
     image: jellyfish,
-    depth: 600,
+    depth: 107,
     size: 2,
     startLeft: false
   },
   {
     image: jellyfish,
-    depth: 599,
+    depth: 108,
     size: 2,
     startLeft: false
   }
